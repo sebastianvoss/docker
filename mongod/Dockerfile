@@ -8,13 +8,13 @@ RUN echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen
 #RUN dpkg-divert --local --rename --add /sbin/initctl
 #RUN ln -s /bin/true /sbin/initctl
 
+ENV DEBIAN_FRONTEND noninteractive
+
 # Install MongoDB
-RUN apt-get update
-RUN apt-get install mongodb-10gen
+RUN apt-get update && apt-get install -y mongodb-org
 
 # Create the MongoDB data directory
 RUN mkdir -p /data/db
 
 EXPOSE 27017
 ENTRYPOINT ["usr/bin/mongod"]
-
